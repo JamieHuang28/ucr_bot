@@ -1,0 +1,7 @@
+<launch>
+  <include file="$(find ucr_epos_control)/launch/epos.launch" />
+  
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
+    args="5 ucr_epos_control basic_controllers.launch"
+    name="timed_roslaunch" output="screen" />
+</launch>
