@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<robot name="ucrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find ucrbot)/urdf/ucrbot.urdf"/>
+    <xacro:include filename="$(find ucr_description)/urdf/xacro/transmissions.xacro.xml"/>
+</robot>
