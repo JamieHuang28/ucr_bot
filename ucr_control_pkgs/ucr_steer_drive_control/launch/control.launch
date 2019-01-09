@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find ucr_epos_control)/launch/epos.launch" />
+    <include file="$(find ucr_steer_drive_control)/launch/steer_drive_controller.launch" />
+</launch>
