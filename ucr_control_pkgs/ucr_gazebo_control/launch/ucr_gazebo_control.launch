@@ -1,5 +1,5 @@
 <launch>
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="my_position_controller my_velocity_controller my_joint_state_controller" />
-	<rosparam command="load" file="$(find ucr_epos_control)/config/basic_controllers.yaml" />
+    output="screen" args="steer_controller rear_left_drive_controller joint_state_controller" />
+	<rosparam command="load" file="$(find ucr_gazebo_control)/config/gazebo_controllers.yaml" />
 </launch>
