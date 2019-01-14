@@ -1,8 +1,8 @@
 # Time in seconds
 # Current in amps
 # position, velocity, and acceleration in device units
-steer_actuator:
-  actuator_name: 'steer_actuator'
+front_steer_actuator:
+  actuator_name: 'front_steer_actuator'
   serial_number: '602068008541'
   operation_mode: 'profile_position'
   clear_faults: true
@@ -20,8 +20,8 @@ steer_actuator:
       resolution: 500
       inverted_polarity: false
 
-rear_left_drive_actuator:
-  actuator_name: 'rear_left_drive_actuator'
+rear_drive_actuator:
+  actuator_name: 'rear_drive_actuator'
   serial_number: '602068008479'
   operation_mode: 'profile_velocity'
   clear_faults: true
