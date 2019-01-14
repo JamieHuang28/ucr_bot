@@ -7,8 +7,8 @@ joint_state_controller:
 # Wheel & Steer
 steer_drive_controller:
   type                          : "steer_drive_controller/SteerDriveController"
-  rear_wheel                    : 'rear_left_drive_joint'
-  front_steer                   : 'steer_joint'
+  rear_wheel                    : 'rear_drive_joint'
+  front_steer                   : 'front_steer_joint'
   #publish_rate                  : 100
 
   pose_covariance_diagonal      : [0.00001, 0.00001, 1000000000000.0, 1000000000000.0, 1000000000000.0, 0.001]
@@ -17,7 +17,7 @@ steer_drive_controller:
   #wheel_radius_multiplier       : 1.0 # calibration parameter for linear odometory
   #steer_pos_multiplier          : 1.0
   #cmd_vel_timeout               : 20
-  #base_frame_id                 : base_link
+  base_frame_id                 : base_footprint
 
   enable_odom_tf: true
   wheel_separation_h            : 0.40
