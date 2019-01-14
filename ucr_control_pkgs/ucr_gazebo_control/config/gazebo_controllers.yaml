@@ -2,10 +2,10 @@ joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
 
-steer_controller:
+front_steer_controller:
   type: position_controllers/JointPositionController
-  joint: steer_joint
+  joint: front_steer_joint
 
-rear_left_drive_controller:
+rear_drive_controller:
   type: velocity_controllers/JointVelocityController
-  joint: rear_left_drive_joint
+  joint: rear_drive_joint
