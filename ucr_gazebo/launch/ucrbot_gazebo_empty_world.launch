@@ -1,5 +1,5 @@
 <launch>
-  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" />
     <!-- 加载机器人模型描述参数 -->
     <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ucr_description)/urdf/xacro/gazebo/ucrbot.gazebo.xacro'" /> 
 
@@ -13,5 +13,5 @@
     
     <!-- 在gazebo中加载机器人模型-->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -model mbot -param robot_description"/>
+          args="-urdf -model ucrbot -param robot_description"/>
 </launch>
