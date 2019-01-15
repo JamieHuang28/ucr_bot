@@ -4,4 +4,10 @@
 
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="steer_drive_controller joint_state_controller"/>
+  
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find ucr_steer_drive_control)/urdf_steer_drive_control.rviz" />
 </launch>
