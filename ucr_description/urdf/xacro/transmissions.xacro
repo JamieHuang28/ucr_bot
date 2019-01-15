@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <robot name="ucrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <!-- macro for mechanical reduction
+    default unit of position motor is qc/s
+    default unit of velocity motor is rmp -->
+    <xacro:property name="PI" value="3.141592653" />
+    <xacro:property name="std2rpm_rate" value="${30/PI}" />
+    <xacro:property name="steer_encoder_resolution" value="2000" />
+    <xacro:property name="steer_gear_reduction" value="200" />
+    <xacro:property name="drive_gear_reduction" value="244" />
+    
     <!-- transmission of steer drive -->
     <transmission name="front_steer_joint_trans" >
         <type>transmission_interface/SimpleTransmission</type>
@@ -7,7 +17,9 @@
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
         </joint>
         <actuator name="front_steer_actuator" >
-            <mechanicalReduction>200</mechanicalReduction>
+            <mechanicalReduction>
+                ${steer_gear_reduction*steer_encoder_resolution/2/PI}
+            </mechanicalReduction>
         </actuator>
     </transmission>
     
@@ -18,7 +30,9 @@
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="rear_drive_actuator" >
-            <mechanicalReduction>244</mechanicalReduction>
+            <mechanicalReduction>
+                ${drive_gear_reduction*std2rpm_rate}
+            </mechanicalReduction>
         </actuator>
     </transmission>
 </robot>
