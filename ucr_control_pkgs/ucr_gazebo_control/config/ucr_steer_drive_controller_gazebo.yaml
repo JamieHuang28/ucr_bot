@@ -21,7 +21,7 @@ steer_drive_controller:
 
   enable_odom_tf: true
   wheel_separation_h            : 0.368
-  wheel_radius                  : 0.765
+  wheel_radius                  : 0.0765
 
   #linear:
   #  x:
