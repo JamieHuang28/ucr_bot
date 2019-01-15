@@ -96,7 +96,7 @@
       lower="-0.5"
       upper="0.5"
       effort="0"
-      velocity="0" />
+      velocity="1" />
   </joint>
   <link
     name="front_left_wheel">
