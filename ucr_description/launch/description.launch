@@ -1,6 +1,6 @@
 <launch>
   <!-- regist robot_description from .xacro file to rosparam server -->
-  <arg name="model" value="$(find xacro)/xacro --inorder '$(find ucr_description)/urdf/xacro/base.xacro'" />
+  <arg name="model" value="$(find xacro)/xacro --inorder '$(find ucr_description)/urdf/xacro/ucrbot.xacro'" />
   <param name="robot_description" command="$(arg model)" />
   
   <!-- run node to publish states and tf -->
