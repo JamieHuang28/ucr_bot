@@ -14,14 +14,14 @@ steer_drive_controller:
   pose_covariance_diagonal      : [0.00001, 0.00001, 1000000000000.0, 1000000000000.0, 1000000000000.0, 0.001]
   twist_covariance_diagonal     : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
   #wheel_separation_h_multiplier : 2.0 # calibration parameter for angle odometory
-  #wheel_radius_multiplier       : 1.0 # calibration parameter for linear odometory
-  #steer_pos_multiplier          : 1.0
+  wheel_radius_multiplier       : 0.1047 # ratio of rad/s v.s. rmp
+  steer_pos_multiplier          : 318.31 # ratio of rad v.s. qc(2000qc/round for current encoder)
   #cmd_vel_timeout               : 20
   base_frame_id                 : base_footprint
 
   enable_odom_tf: true
-  wheel_separation_h            : 0.40
-  wheel_radius                  : 0.08
+  wheel_separation_h            : 0.368
+  wheel_radius                  : 0.0765
 
   #linear:
   #  x:
