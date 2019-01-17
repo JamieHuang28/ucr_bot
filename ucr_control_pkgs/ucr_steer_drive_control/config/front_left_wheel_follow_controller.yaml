@@ -1,0 +1,4 @@
+front_left_wheel_controller:
+  wheel_seperation_h: 0.368
+  wheel_seperation_w: 0.30
+  wheel_radius: 0.07854

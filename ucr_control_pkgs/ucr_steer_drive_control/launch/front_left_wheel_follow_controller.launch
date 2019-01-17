@@ -1,0 +1,4 @@
+<launch>
+  <rosparam command="load" file="$(find ucr_steer_drive_control)/config/front_left_wheel_follow_controller.yaml" />
+  <node name="front_left_wheel_controller" pkg="ucr_steer_drive_control" type="front_left_wheel_follow_controller" output="screen"/>
+</launch>

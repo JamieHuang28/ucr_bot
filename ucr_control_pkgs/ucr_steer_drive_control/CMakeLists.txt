@@ -199,3 +199,6 @@ include_directories(
 # catkin_add_nosetests(test)
 add_executable(front_left_wheel_follow_controller src/front_left_wheel_follow_controller.cpp )
 target_link_libraries(front_left_wheel_follow_controller ${catkin_LIBRARIES})
+
+# compile with c++11
+# add_compile_options(-std=c++11)
