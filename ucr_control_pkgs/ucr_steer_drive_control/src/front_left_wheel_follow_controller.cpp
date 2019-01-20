@@ -38,14 +38,33 @@
 
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
+#include "sensor_msgs/JointState.h"
 #include "std_msgs/Float64.h"
+#include "std_msgs/String.h"
 
-std_msgs::Float64 g_velocity_to_pub;
+std_msgs::Float64 g_velocity_required;
+std_msgs::Float64 g_steer_velocity;
+std::string g_steer_joint_name;
 
 void CommandCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-  g_velocity_to_pub.data = msg->linear.x;
-  ROS_DEBUG_STREAM("CommandCallback is called, and arg = " << *msg << " , result = " << g_velocity_to_pub);
+  g_velocity_required.data = msg->linear.x;
+  ROS_DEBUG_STREAM("CommandCallback is called, and arg = " << *msg << " , result = " << g_velocity_required);
+}
+
+void JointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
+{
+  int i;
+  for(i = 0; i < msg->velocity.size(); ++i)
+  {
+    if( msg->name[i] == g_steer_joint_name)
+    {
+      g_steer_velocity.data = msg->velocity[i];
+      break;
+    }
+  }
+  if(i == msg->velocity.size())
+    ROS_ERROR_STREAM("no velocity of joint \'" << g_steer_joint_name << "\' is availabl." );
 }
 
 int main(int argc, char** argv)
@@ -56,6 +75,7 @@ int main(int argc, char** argv)
   
   ros::Publisher velocity_pub = nh.advertise<std_msgs::Float64>("velocity", 1);
   ros::Subscriber cmd_sub = nh.subscribe("/steer_drive_controller/cmd_vel", 1, CommandCallback);
+  ros::Subscriber steer_sub = nh.subscribe("/joint_states", 1, JointStateCallback);
   
   int publish_rate;
   double wheel_seperation_h;// between front wheel and rear wheel
@@ -79,20 +99,28 @@ int main(int argc, char** argv)
   {
     ROS_WARN("failed to get parameter of wheel_radius, use %.2f as default value.", 0.5);
   }
+  if(!nh.param<std::string>("steer_joint_name", g_steer_joint_name, "steer_joint"))
+  {
+    ROS_WARN("failed to get parameter of steer_joint_name, use %s as default value.", "steer_joint");
+  }
   
   ros::Rate r(publish_rate);
   
-  g_velocity_to_pub.data = 0;
+  g_velocity_required.data = 0;
   ros::spinOnce();// spin once to get first command
   
+  double eq_vel_steer2drive;// equivalent velocity from steering to driving for left_front_wheel (yeild when robot doesn't move)
+  std_msgs::Float64 angular_velocity_to_pub;
   while(ros::ok())
   {
     // calculate the velocity to publish
+    eq_vel_steer2drive = -(double)g_steer_velocity.data*wheel_seperation_w/2/wheel_radius;
+    angular_velocity_to_pub.data = g_velocity_required.data/wheel_radius + eq_vel_steer2drive;
     
     // publish velocity command for front left wheel
-    velocity_pub.publish(g_velocity_to_pub);
+    velocity_pub.publish(angular_velocity_to_pub);
     
-    ros::spinOnce();
+    ros::spinOnce();// todo: subscribe cmd and joint_state at different rate
     r.sleep();
   }
   
