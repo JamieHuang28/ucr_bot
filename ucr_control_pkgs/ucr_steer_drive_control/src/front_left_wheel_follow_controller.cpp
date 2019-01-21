@@ -45,7 +45,10 @@
 std_msgs::Float64 g_velocity_required;
 std_msgs::Float64 g_steer_velocity;
 std::string g_steer_joint_name;
+std::string g_rear_drive_joint_name;
+double g_wheel_radius;
 
+// everytime when command available, update required velocity
 void CommandCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
   g_velocity_required.data = msg->linear.x;
@@ -57,14 +60,26 @@ void JointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
   int i;
   for(i = 0; i < msg->velocity.size(); ++i)
   {
-    if( msg->name[i] == g_steer_joint_name)
+    if (msg->name[i] == g_steer_joint_name)
     {
       g_steer_velocity.data = msg->velocity[i];
       break;
     }
   }
   if(i == msg->velocity.size())
-    ROS_ERROR_STREAM("no velocity of joint \'" << g_steer_joint_name << "\' is availabl." );
+    ROS_ERROR_STREAM("no velocity of joint \'" << g_steer_joint_name << "\' is available." );  
+  
+  for(i = 0; i < msg->velocity.size(); ++i)
+  {
+    // if velocity of rear_drive_joint available, update required velocity
+    if (msg->name[i] == g_rear_drive_joint_name)
+    {
+      g_velocity_required.data = msg->velocity[i]*g_wheel_radius;
+      break;
+    }
+  }
+  if(i == msg->velocity.size())
+    ROS_ERROR_STREAM("no velocity of joint \'" << g_rear_drive_joint_name << "\' is available." );
 }
 
 int main(int argc, char** argv)
@@ -74,13 +89,12 @@ int main(int argc, char** argv)
   ros::NodeHandle nh("~");
   
   ros::Publisher velocity_pub = nh.advertise<std_msgs::Float64>("velocity", 1);
-  ros::Subscriber cmd_sub = nh.subscribe("/steer_drive_controller/cmd_vel", 1, CommandCallback);
-  ros::Subscriber steer_sub = nh.subscribe("/joint_states", 1, JointStateCallback);
+  ros::Subscriber cmd_vel_sub = nh.subscribe("/steer_drive_controller/cmd_vel", 1, CommandCallback);
+  ros::Subscriber joint_state_sub = nh.subscribe("/joint_states", 1, JointStateCallback);
   
   int publish_rate;
   double wheel_seperation_h;// between front wheel and rear wheel
   double wheel_seperation_w;// between left wheel and right wheel
-  double wheel_radius;
   
   // get parameters
   if(!nh.param<int>("publish_rate", publish_rate, 50))
@@ -95,13 +109,17 @@ int main(int argc, char** argv)
   {
     ROS_WARN("failed to get parameter of wheel_seperation_w, use %.2f as default value.", 1.0);
   }
-  if(!nh.param<double>("wheel_radius", wheel_radius, 0.5))
+  if(!nh.param<double>("wheel_radius", g_wheel_radius, 0.5))
   {
     ROS_WARN("failed to get parameter of wheel_radius, use %.2f as default value.", 0.5);
   }
   if(!nh.param<std::string>("steer_joint_name", g_steer_joint_name, "steer_joint"))
   {
     ROS_WARN("failed to get parameter of steer_joint_name, use %s as default value.", "steer_joint");
+  }
+  if(!nh.param<std::string>("rear_drive_joint_name", g_rear_drive_joint_name, "rear_drive_joint"))
+  {
+    ROS_WARN("failed to get parameter of rear_drive_joint_name, use %s as default value.", "rear_drive_joint");
   }
   
   ros::Rate r(publish_rate);
@@ -114,8 +132,8 @@ int main(int argc, char** argv)
   while(ros::ok())
   {
     // calculate the velocity to publish
-    eq_vel_steer2drive = -(double)g_steer_velocity.data*wheel_seperation_w/2/wheel_radius;
-    angular_velocity_to_pub.data = g_velocity_required.data/wheel_radius + eq_vel_steer2drive;
+    eq_vel_steer2drive = -(double)g_steer_velocity.data*wheel_seperation_w/2/g_wheel_radius;
+    angular_velocity_to_pub.data = g_velocity_required.data/g_wheel_radius + eq_vel_steer2drive;
     
     // publish velocity command for front left wheel
     velocity_pub.publish(angular_velocity_to_pub);
