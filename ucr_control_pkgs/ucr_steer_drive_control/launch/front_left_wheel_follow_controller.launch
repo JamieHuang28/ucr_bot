@@ -1,9 +1,0 @@
-<launch>
-  <arg name="pub_topic" default="/front_left_follow_controller/velocity" />
-  
-  <!-- launch the speed control node with parameters -->
-  <rosparam command="load" file="$(find ucr_steer_drive_control)/config/front_left_wheel_follow_controller.yaml" />
-  <node name="front_left_follow_controller" pkg="ucr_steer_drive_control" type="front_left_wheel_follow_controller" output="screen">
-    <remap from="/front_left_follow_controller/velocity" to="$(arg pub_topic)" />
-  </node>
-</launch>

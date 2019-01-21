@@ -1,6 +1,6 @@
 front_left_follow_controller:
-  publish_rate: 5
-  wheel_seperation_h: 0.368
+  publish_rate: 50
   wheel_seperation_w: 0.1
   wheel_radius: 0.0765
   steer_joint_name: "front_steer_joint"
+  rear_drive_joint_name: "rear_drive_joint"

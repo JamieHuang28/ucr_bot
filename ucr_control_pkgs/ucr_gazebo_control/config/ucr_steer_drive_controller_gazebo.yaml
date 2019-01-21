@@ -1,4 +1,4 @@
-# cirkit_unit03:
+# ucr:
 # Publish all joint states -----------------------------------
 joint_state_controller:
   type: joint_state_controller/JointStateController
@@ -9,7 +9,7 @@ steer_drive_controller:
   type                          : "steer_drive_controller/SteerDriveController"
   rear_wheel                    : 'rear_drive_joint'
   front_steer                   : 'front_steer_joint'
-  #publish_rate                  : 100
+  publish_rate                  : 75 # optinal?
 
   pose_covariance_diagonal      : [0.00001, 0.00001, 1000000000000.0, 1000000000000.0, 1000000000000.0, 0.001]
   twist_covariance_diagonal     : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

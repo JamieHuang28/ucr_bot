@@ -149,7 +149,7 @@
     <child
       link="front_left_wheel" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="front_right_wheel">
@@ -202,7 +202,7 @@
     <child
       link="front_right_wheel" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="rear_holder">
@@ -308,7 +308,7 @@
     <child
       link="rear_wheel" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
   </joint>
   
   <link name="base_footprint">
@@ -320,8 +320,25 @@
     </visual>
   </link>
   <joint name="base_footprint_joint" type="fixed">
-    <origin xyz="0 0 0" rpy="0 0 -1.5708" />        
+    <origin xyz="0.223 -0.001 0.1116" rpy="0 0 -1.5708" />        
     <parent link="base_footprint"/>
     <child link="base_link" />
+  </joint>
+  
+  <link name="imu" >
+  </link>
+  <joint name="imu_joint" type="fixed" >
+    <!-- for the odom direction of steer_drive_control -->
+    <origin xyz="-0.024 0.15475 0.1039" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu" />
+  </joint>
+  
+  <link name="camera" >
+  </link>
+  <joint name="camera_joint" type="fixed" >
+    <origin xyz="0 0 0.1286" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="camera" />
   </joint>
 </robot>

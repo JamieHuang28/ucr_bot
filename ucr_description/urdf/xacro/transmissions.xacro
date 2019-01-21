@@ -35,4 +35,17 @@
             </mechanicalReduction>
         </actuator>
     </transmission>
+    
+    <!-- transmission of front left wheel -->
+    <transmission name="front_left_joint_trans" >
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="front_left_drive_joint" >
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="front_left_drive_actuator" >
+            <mechanicalReduction>
+                ${drive_gear_reduction*std2rpm_ratio}
+            </mechanicalReduction>
+        </actuator>
+    </transmission>
 </robot>

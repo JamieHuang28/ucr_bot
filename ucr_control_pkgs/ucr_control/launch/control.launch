@@ -1,0 +1,10 @@
+<launch>
+  <!-- launch the epos_hardware -->
+  <include file="$(find ucr_epos_control)/launch/epos.launch" />
+  
+  <!-- launch the steer_drive_controller -->
+  <include file="$(find ucr_control)/launch/steer_drive_controller.launch" />
+  
+  <!-- launch the front_left_wheel_follower -->
+  <include file="$(find ucr_control)/launch/ucr_front_left_follow_control.launch" />
+</launch>
