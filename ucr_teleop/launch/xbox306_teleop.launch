@@ -1,0 +1,8 @@
+<launch>
+  <node name="joystick" pkg="joy" type="joy_node" />
+  
+  <rosparam command="load" file="$(find ucr_teleop)/config/joy_teleop.yaml" />
+  <node name="joy_teleop" pkg="joy_teleop" type="joy_teleop.py">
+    <remap from="/cmd_vel" to="/steer_drive_controller/cmd_vel" />
+  </node>
+</launch>

@@ -1,0 +1,14 @@
+teleop:
+  move:
+    type: topic
+    message_type: geometry_msgs/Twist
+    topic_name: cmd_vel
+    axis_mappings:
+      -
+        axis: 1
+        target: linear.x
+        scale: 0.2 # maximal velocity is 0.2m/s
+      -
+        axis: 3
+        target: angular.z
+        scale: 0.5 # maximal steer angle is 30deg
