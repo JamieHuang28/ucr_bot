@@ -1,7 +1,0 @@
-<launch>
-    <include file="$(find ucr_description)/launch/description.launch" />
-    <node name="epos_hardware" pkg="epos_hardware" type="epos_hardware_node" 
-    args="front_steer_actuator rear_drive_actuator">
-        <rosparam command="load" file="$(find ucr_epos_control)/config/epos.yaml" />
-    </node>
-</launch>

@@ -1,4 +1,0 @@
-<launch>
-  <include file="$(find ucr_epos_control)/launch/epos.launch" />
-  <include file="$(find ucr_epos_control)/launch/basic_controllers.launch" />
-</launch>
