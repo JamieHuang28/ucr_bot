@@ -1,4 +1,5 @@
-front_left_follow_controller:
+# based on the assumption that the front drive actuator is the same as rear drive actuator, including transmission
+front_left_wheel_autodriver:
   publish_rate: 50
   wheel_seperation_w: 0.1
   wheel_radius: 0.0765

@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find ucr_epos_hardware)/launch/epos.launch" />
+  <include file="$(find ucr_epos_hardware)/launch/example_controllers.launch" />
+</launch>

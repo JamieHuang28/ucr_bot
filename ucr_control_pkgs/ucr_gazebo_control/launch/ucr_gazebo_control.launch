@@ -1,6 +1,0 @@
-<launch>
-  <include file="$(find ucr_gazebo_control)/launch/ucr_gazebo_steer_drive_control.launch" />
-  
-  <!-- use timed_roslaunch to launch front_left_follow_controller -->
-  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="5 ucr_gazebo_control ucr_gazebo_front_left_follow_control.launch" name="timed_roslaunch" output="screen" />
-</launch>

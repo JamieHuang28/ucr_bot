@@ -4,10 +4,11 @@
     <!-- macro for mechanical reduction
     default unit of position motor is qc/s
     default unit of velocity motor is rmp -->
-    <xacro:property name="PI" value="3.141592653" />
-    <xacro:property name="std2rpm_ratio" value="${30/PI}" />
-    <xacro:property name="steer_encoder_resolution" value="2000" />
+    <xacro:property name="M_PI" value="3.141592653" />
+    <xacro:property name="std2rpm_ratio" value="${30/M_PI}" />
+    <xacro:property name="steer_encoder_quadcounter" value="4096" />
     <xacro:property name="steer_gear_reduction" value="200" />
+    <xacro:property name="drive_encoder_quadcounter" value="4000" />
     <xacro:property name="drive_gear_reduction" value="244" />
     
     <!-- transmission of steer drive -->
@@ -18,7 +19,7 @@
         </joint>
         <actuator name="front_steer_actuator" >
             <mechanicalReduction>
-                ${steer_gear_reduction*steer_encoder_resolution/2/PI}
+                ${steer_gear_reduction*steer_encoder_quadcounter/2/M_PI}
             </mechanicalReduction>
         </actuator>
     </transmission>

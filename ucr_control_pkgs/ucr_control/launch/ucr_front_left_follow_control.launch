@@ -1,10 +1,8 @@
 <launch>
-  <!-- launch the controller in ros_control with parameters -->
-  <rosparam command="load" file="$(find ucr_gazebo_control)/config/front_left_drive_controller.yaml" />
-  <node name="front_left_drive_controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="front_left_drive_controller" >
+  <!-- load the parameter -->
+  <rosparam command="load" file="$(find ucr_control)/config/front_left_wheel_follow_controller.yaml" />
+  <!-- launch the node and remap its publication to corresponding controller input-->
+  <node name="front_left_wheel_autodriver" pkg="ucr_control" type="front_left_wheel_follow_controller" >
+    <remap from="front_left_wheel_autodriver/velocity" to="front_left_drive_controller/command" />
   </node>
-  
-  <include file="$(find ucr_control)/launch/front_left_wheel_follow_controller.launch">
-    <arg name="pub_topic" value="front_left_drive_controller/command" />
-  </include>
 </launch>

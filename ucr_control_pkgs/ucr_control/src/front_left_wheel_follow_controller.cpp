@@ -43,16 +43,16 @@
 #include "std_msgs/String.h"
 
 static std::string g_rear_drive_joint_name;
-static double g_rear_linear_velocity;
+static double g_rear_drive_joint_velocity;
 static std::string g_steer_joint_name;
 static double g_steer_joint_velocity;
-static double g_wheel_radius;
+static double g_steer_joint_position;
 
 // everytime when command available, update required velocity, it is additional
 void CommandCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
-  g_rear_linear_velocity = msg->linear.x;
-  ROS_DEBUG_STREAM("CommandCallback is called, and arg = " << *msg << " , result = " << g_rear_linear_velocity);
+  g_rear_drive_joint_velocity = msg->linear.x;// get linear velicity
+  ROS_DEBUG_STREAM("CommandCallback is called, and arg = " << *msg << " , result = " << g_rear_drive_joint_velocity);
 }
 
 // to follow the rear wheel taking steer_velocity into consideration
@@ -63,24 +63,36 @@ void JointStateCallback(const sensor_msgs::JointState::ConstPtr& msg)
   {
     if (msg->name[i] == g_steer_joint_name)
     {
-      g_steer_joint_velocity = msg->velocity[i];
+      g_steer_joint_velocity = msg->velocity[i];// caution: angular velocity is not true
+      g_steer_joint_velocity = g_steer_joint_velocity*4096/60;// correct the scale from supposed transmission
       break;
     }
   }
   if(i == msg->velocity.size())
-    ROS_ERROR_STREAM("no velocity of joint \'" << g_steer_joint_name << "\' is available." );
+    ROS_DEBUG_STREAM("no velocity of joint \'" << g_steer_joint_name << "\' is available." );
   
   for(i = 0; i < msg->velocity.size(); ++i)
+  {
+    if (msg->name[i] == g_steer_joint_name)
+    {
+      g_steer_joint_position = msg->position[i];
+      break;
+    }
+  }
+  if(i == msg->velocity.size())
+    ROS_DEBUG_STREAM("no velocity of joint \'" << g_steer_joint_name << "\' is available." );
+  
+  /*for(i = 0; i < msg->velocity.size(); ++i)
   {
     // if velocity of rear_drive_joint available, update required velocity
     if (msg->name[i] == g_rear_drive_joint_name)
     {
-      g_rear_linear_velocity = msg->velocity[i]*g_wheel_radius;
+      g_rear_drive_joint_velocity = msg->velocity[i]*wheel_radius;// turn into linear velocity
       break;
     }
   }
   if(i == msg->velocity.size())
-    ROS_ERROR_STREAM("no velocity of joint \'" << g_rear_drive_joint_name << "\' is available." );
+    ROS_DEBUG_STREAM("no velocity of joint \'" << g_rear_drive_joint_name << "\' is available." );*/
 }
 
 int main(int argc, char** argv)
@@ -95,6 +107,7 @@ int main(int argc, char** argv)
   
   int publish_rate;
   double wheel_seperation_w;// between left wheel and right wheel
+  double wheel_radius;
   
   // get parameters
   if(!nh.param<int>("publish_rate", publish_rate, 50))
@@ -105,7 +118,7 @@ int main(int argc, char** argv)
   {
     ROS_WARN("failed to get parameter of wheel_seperation_w, use %.2f as default value.", 1.0);
   }
-  if(!nh.param<double>("wheel_radius", g_wheel_radius, 0.5))
+  if(!nh.param<double>("wheel_radius", wheel_radius, 0.5))
   {
     ROS_WARN("failed to get parameter of wheel_radius, use %.2f as default value.", 0.5);
   }
@@ -120,7 +133,7 @@ int main(int argc, char** argv)
   
   ros::Rate r(publish_rate);
   
-  g_rear_linear_velocity = 0;// for safety
+  g_rear_drive_joint_velocity = 0;// for safety
   ros::spinOnce();// spin once to get inital values of global variables
   
   double eq_vel_steer2drive;// equivalent velocity from steering to driving for left_front_wheel (yeild when robot doesn't move)
@@ -128,8 +141,8 @@ int main(int argc, char** argv)
   while(ros::ok())
   {
     // calculate the velocity to publish
-    eq_vel_steer2drive = -g_steer_joint_velocity*wheel_seperation_w/2/g_wheel_radius;
-    angular_velocity_to_pub.data = g_rear_linear_velocity/g_wheel_radius + eq_vel_steer2drive;
+    eq_vel_steer2drive = -g_steer_joint_velocity*wheel_seperation_w/2/wheel_radius;
+    angular_velocity_to_pub.data = g_rear_drive_joint_velocity/wheel_radius*cos(g_steer_joint_position) + eq_vel_steer2drive;
     
     // publish velocity command for front left wheel
     velocity_pub.publish(angular_velocity_to_pub);

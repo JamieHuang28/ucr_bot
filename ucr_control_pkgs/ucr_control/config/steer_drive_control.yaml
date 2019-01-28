@@ -9,14 +9,19 @@ steer_drive_controller:
   type                          : "steer_drive_controller/SteerDriveController"
   rear_wheel                    : 'rear_drive_joint'
   front_steer                   : 'front_steer_joint'
-  publish_rate                  : 30
+  publish_rate                  : 50
 
   pose_covariance_diagonal      : [0.00001, 0.00001, 1000000000000.0, 1000000000000.0, 1000000000000.0, 0.001]
   twist_covariance_diagonal     : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-  wheel_radius_multiplier       : 0.1047 # ratio of rad/s v.s. rmp
-  steer_pos_multiplier          : 318.31 # ratio of rad v.s. qc(2000qc/round for current encoder)
+  wheel_radius_multiplier       : 0.016
+  steer_pos_multiplier          : 0.9
   base_frame_id                 : base_footprint
 
   enable_odom_tf: true
   wheel_separation_h            : 0.368
   wheel_radius                  : 0.0765
+
+# Front left wheel
+front_left_drive_controller:
+  type: velocity_controllers/JointVelocityController
+  joint: front_left_drive_joint

@@ -1,3 +1,0 @@
-front_left_drive_controller:
-  type: velocity_controllers/JointVelocityController
-  joint: front_left_drive_joint

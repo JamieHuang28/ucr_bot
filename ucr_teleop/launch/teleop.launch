@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find ucr_teleop)/launch/xbox360_teleop_from_turtlebot.launch" />
+  
+  <include file="$(find ucr_rviz)/launch/rviz.launch" />
+</launch>

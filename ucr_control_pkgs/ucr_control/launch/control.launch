@@ -3,8 +3,8 @@
   <include file="$(find ucr_epos_hardware)/launch/epos.launch" />
   
   <!-- launch the steer_drive_controller -->
-  <include file="$(find ucr_control)/launch/steer_drive_controller.launch" />
+  <include file="$(find ucr_control)/launch/ucr_steer_drive_control.launch" />
   
-  <!-- launch the front_left_wheel_follower -->
-  <include file="$(find ucr_control)/launch/ucr_front_left_follow_control.launch" />
+  <!-- use timed_roslaunch to launch front_left_follow_controller -->
+  <node pkg="timed_roslaunch" type="timed_roslaunch.sh" args="5 ucr_control ucr_front_left_follow_control.launch" name="timed_roslaunch" output="screen" />
 </launch>
