@@ -1,0 +1,7 @@
+<launch>
+  <!-- 加载机器人模型描述参数 -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ucr_gazebo)/urdf/description.gazebo.xacro'" />
+  
+  <!--运行robot_state_publisher节点，发布tf  -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+</launch>
