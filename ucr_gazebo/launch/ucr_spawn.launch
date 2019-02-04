@@ -1,0 +1,9 @@
+<launch>
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <rosparam file="$(find ucr_gazebo)/config/ucr_hardware_gazebo.yaml" command="load"/>
+  <rosparam file="$(find ucr_gazebo)/config/pids.yaml" command="load"/>
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model ucrbot -param robot_description"/>
+</launch>

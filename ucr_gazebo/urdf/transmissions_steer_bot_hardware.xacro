@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="ucrbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <!-- macro for mechanical reduction
+    default unit of position motor is qc/s
+    default unit of velocity motor is rmp -->
+    <xacro:property name="M_PI" value="3.141592653" />
+    <xacro:property name="std2rpm_ratio" value="${30/M_PI}" />
+    <xacro:property name="steer_encoder_quadcounter" value="4096" />
+    <xacro:property name="steer_gear_reduction" value="200" />
+    <xacro:property name="drive_encoder_quadcounter" value="4000" />
+    <xacro:property name="drive_gear_reduction" value="244" />
+    
+    <!-- transmission of steer drive -->
+    <!--transmission name="front_steer_joint_trans" >
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="front_steer_joint" >
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="front_steer_actuator" >
+            <mechanicalReduction>
+                ${steer_gear_reduction*steer_encoder_quadcounter/2/M_PI}
+            </mechanicalReduction>
+        </actuator>
+    </transmission-->
+    
+    <!-- transmission of rear wheel -->
+    <transmission name="rear_drive_joint_trans" >
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="rear_drive_joint" >
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="rear_drive_actuator" >
+            <mechanicalReduction>
+                ${drive_gear_reduction*std2rpm_ratio}
+            </mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <!-- transmission of front left wheel -->
+    <transmission name="front_left_joint_trans" >
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="front_left_drive_joint" >
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="front_left_drive_actuator" >
+            <mechanicalReduction>
+                ${drive_gear_reduction*std2rpm_ratio}
+            </mechanicalReduction>
+        </actuator>
+    </transmission>
+</robot>

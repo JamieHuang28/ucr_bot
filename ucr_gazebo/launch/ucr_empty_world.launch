@@ -4,6 +4,5 @@
     <include file="$(find ucr_gazebo)/launch/description.gazebo.launch" />
     
     <!-- 在gazebo中加载机器人模型-->
-    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-          args="-urdf -model ucrbot -param robot_description"/>
+    <include file="$(find ucr_gazebo)/launch/ucr_spawn.launch" />
 </launch>

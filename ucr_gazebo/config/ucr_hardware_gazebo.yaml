@@ -1,0 +1,11 @@
+steer_bot_hardware_gazebo:
+    rear_wheel  : 'drive_joint' # input interface of hardware
+    front_steer : 'steer_joint' # input interface of hardware
+    virtual_rear_wheels  : ['rear_drive_joint']
+    virtual_front_wheels : ['front_left_drive_joint', 'front_right_drive_joint']
+    virtual_front_steers : ['front_steer_joint']
+
+    # ackermann link mechanism
+    enable_ackermann_link: true
+    wheel_separation_w : 0.10
+    wheel_separation_h : 0.368
