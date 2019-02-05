@@ -15,7 +15,7 @@ steer_drive_controller:
   twist_covariance_diagonal     : [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
   wheel_radius_multiplier       : 0.016
   steer_pos_multiplier          : 0.9
-  base_frame_id                 : base_footprint
+  base_frame_id                 : odom_link
 
   enable_odom_tf: true
   wheel_separation_h            : 0.368

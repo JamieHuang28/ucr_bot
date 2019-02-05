@@ -22,4 +22,8 @@
     <kd value="1.0" />
     <fdir1 value="1 0 0"/>
   </gazebo>
+  
+  <gazebo reference="base_link">
+    <gravity value="true" />
+  </gazebo>
 </robot>

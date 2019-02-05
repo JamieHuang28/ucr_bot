@@ -12,7 +12,7 @@
     <xacro:property name="drive_gear_reduction" value="244" />
     
     <!-- transmission of steer drive -->
-    <!--transmission name="front_steer_joint_trans" >
+    <transmission name="front_steer_joint_trans" >
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="front_steer_joint" >
             <hardwareInterface>EffortJointInterface</hardwareInterface>
@@ -22,7 +22,7 @@
                 ${steer_gear_reduction*steer_encoder_quadcounter/2/M_PI}
             </mechanicalReduction>
         </actuator>
-    </transmission-->
+    </transmission>
     
     <!-- transmission of rear wheel -->
     <transmission name="rear_drive_joint_trans" >
@@ -41,9 +41,22 @@
     <transmission name="front_left_joint_trans" >
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="front_left_drive_joint" >
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="front_left_drive_actuator" >
+            <mechanicalReduction>
+                ${drive_gear_reduction*std2rpm_ratio}
+            </mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <!-- transmission of front right wheel -->
+    <transmission name="front_right_joint_trans" >
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="front_right_drive_joint" >
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="front_right_drive_actuator" >
             <mechanicalReduction>
                 ${drive_gear_reduction*std2rpm_ratio}
             </mechanicalReduction>

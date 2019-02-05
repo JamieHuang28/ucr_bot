@@ -311,18 +311,18 @@
       xyz="-1 0 0" />
   </joint>
   
-  <link name="base_footprint">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-          <box size="0.001 0.001 0.001" />
-      </geometry>
-    </visual>
-  </link>
-  <joint name="base_footprint_joint" type="fixed">
+  <link name="odom_link" />
+  <joint name="odom_joint" type="fixed">
     <origin xyz="0.223 -0.001 0.1116" rpy="0 0 -1.5708" />        
-    <parent link="base_footprint"/>
+    <parent link="odom_link"/>
     <child link="base_link" />
+  </joint>
+  
+  <link name="base_footprint" />
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="-0.1575 0 0" rpy="0 0 0" />
+    <parent link="base_footprint" />
+    <child link="odom_link" />
   </joint>
   
   <link name="imu" >
