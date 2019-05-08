@@ -6,7 +6,10 @@ UCR(Underwater Cleaning Robot) is a project of HOME(Human-machine Ocean Mechanic
 * epos_hardware
 * turtlebot
 
-# Running Online
+# Getting Started
+## 1. Enable the robot
+The robot could be enabled either by running online(option A) or by simulating(option B).
+### Option A: Running Online
 Launch the EPOS driver. EPOS is servo motor of UCR.
 
 ```$roslaunch ucr_epos_hardware epos.launch```
@@ -15,7 +18,7 @@ Launch the basic motion controller. This controller can drive the wheels of UCR 
 
 ```$roslaunch ucr_control control.launch```
 
-# Simulation
+### Option B: Simulation
 Launch the world in Gazebo. It will open gazebo, load the world, and start simulating the UCR hardware.
 
 ```$roslaunch ucr_gazebo ucr_empty_world.launch```
@@ -24,7 +27,14 @@ Launch the basic motion controller.
 
 ```$roslaunch ucr_control control_gazebo.launch```
 
-## Package List
+## 2. Teleop
+When robot is enabled, connect a xbox360 joystick to PC and launch the teleoperator
+
+```$roslaunch ucr_teleop xbox360_teleop_from_turtlebot.launch```
+
+Note that "*from_turtlebot" means that the source code is in turtlebot.
+
+# Package List
 * ucr_epos_hardware
 
 Hardware driver for EPOS. Only used when running online.
