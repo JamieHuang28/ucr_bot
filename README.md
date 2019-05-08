@@ -39,7 +39,7 @@ Describe the physical structure.
 
 * ucr_gazebo
 
-Based on Gazebo, a simulation. It provides simulation scenarios(or called "world"), also implements simulation of robot sensors and actuators.
+Based on Gazebo, a simulation tool. It provides simulation scenarios(or called "world"), also implements simulation of robot sensors and actuators.
 
 * ucr_rviz
 
