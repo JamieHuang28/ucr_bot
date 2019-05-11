@@ -2,9 +2,23 @@
 UCR(Underwater Cleaning Robot) is a project of HOME(Human-machine Ocean Mechanic Engineering) team, College of Mechanical Engineering, Zhejiang University. UCR packages are developed on ROS. This package is a collection of packages used on UCR such as simulation package and runing-online package.
 
 # Prerequisit
-* ROS
-* epos_hardware
-* turtlebot
+<ol>
+<li> ROS(kinetic) </li>
+This is all what we are based, see https://wiki.ros.org. And all of the following packages are ROS packages.
+<li> epos_hardware package </li>
+See https://wiki.ros.org/epos_hardware
+<li> turtlebot-teleop package </li>
+
+```$sudo apt install ros-kinetic-turtlebot-teleop```
+
+<li> controller_manager package </li>
+
+```$ sudo apt-get install ros-kinetic-controller-manager```
+<li> ros_control package </li>
+
+```$sodo apt-get install ros-kinetic-ros-control```
+
+</ol>
 
 # Getting Started
 ## 1. Enable the robot
