@@ -8,10 +8,9 @@ UCR(Underwater Cleaning Robot) is a project of HOME(Human-machine Ocean Mechanic
 
 # Getting Started
 ## 1. Enable the robot
-The robot could be enabled either by running online(option A) or by simulating(option B). First switch to branch "steer_bot_hardware_from_master"
+The robot could be enabled either by running online(option A) or by simulating(option B). First switch to branch "master"
 
-```$git checkout steer_bot_hardware_from_master```
-
+```$git checkout master```
 
 ### Option A: Running Online
 Launch the EPOS driver. EPOS is servo motor of UCR.
