@@ -18,7 +18,11 @@ See https://wiki.ros.org/steer_drive_ros
 ```$ sudo apt-get install ros-kinetic-controller-manager```
 <li> ros_control package </li>
 
-```$sodo apt-get install ros-kinetic-ros-control```
+```$sudo apt-get install ros-kinetic-ros-control ros-kinetic-ros-controllers```
+
+<li> gazebo_ros_control package </li>
+
+```$sudo apt-get install ros-kinetic-gazebo-ros-control```
 
 </ol>
 
