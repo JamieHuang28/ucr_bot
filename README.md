@@ -7,6 +7,8 @@ UCR(Underwater Cleaning Robot) is a project of HOME(Human-machine Ocean Mechanic
 This is all what we are based, see https://wiki.ros.org. And all of the following packages are ROS packages.
 <li> epos_hardware package </li>
 See https://wiki.ros.org/epos_hardware
+<li> steer_drive_ros </li>
+See https://wiki.ros.org/steer_drive_ros
 <li> turtlebot-teleop package </li>
 
 ```$sudo apt install ros-kinetic-turtlebot-teleop```
