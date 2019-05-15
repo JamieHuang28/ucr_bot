@@ -1,5 +1,7 @@
 <launch>
-    <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="gui" value="true" />
+    </include>
     
     <include file="$(find ucr_gazebo)/launch/description.gazebo.launch" />
     

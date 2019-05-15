@@ -246,7 +246,7 @@
   </link>
   <joint
     name="rear_holder_joint"
-    type="continuous">
+    type="fixed">
     <origin
       xyz="0 -0.0899999999999911 -0.1116"
       rpy="1.5707963267949 -0.00257589519748985 1.57723230125107E-19" />
@@ -254,8 +254,6 @@
       link="base_link" />
     <child
       link="rear_holder" />
-    <axis
-      xyz="0 0 1" />
   </joint>
   <link
     name="rear_wheel">

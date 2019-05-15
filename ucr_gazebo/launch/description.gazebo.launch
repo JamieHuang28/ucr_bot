@@ -2,6 +2,8 @@
   <!-- 加载机器人模型描述参数 -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find ucr_gazebo)/urdf/description.gazebo.xacro'" />
   
+  <node name="base_footprint_tf" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /base_link /base_footprint 5" />
+  <node name="rear_holder_tf" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /base_link /rear_holder 5" />
   <!--运行robot_state_publisher节点，发布tf  -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 </launch>
