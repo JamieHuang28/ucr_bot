@@ -24,6 +24,10 @@ See https://wiki.ros.org/steer_drive_ros
 
 ```$sudo apt-get install ros-kinetic-gazebo-ros-control```
 
+<li> timed_roslaunch package </li>
+
+```$sudo apt-get install ros-kinetic-timed-roslaunch```
+
 </ol>
 
 # Getting Started
