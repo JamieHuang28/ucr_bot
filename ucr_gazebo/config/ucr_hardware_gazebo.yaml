@@ -6,6 +6,6 @@ steer_bot_hardware_gazebo:
     virtual_front_steers : ['front_steer_joint']
 
     # ackermann link mechanism
-    enable_ackermann_link: true
+    enable_ackermann_link: false
     wheel_separation_w : 0.10
     wheel_separation_h : 0.368
