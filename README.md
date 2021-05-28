@@ -1,4 +1,4 @@
-# ucr_pkgs
+# ucr_bot
 UCR(Underwater Cleaning Robot) is a project of HOME(Human-machine Ocean Mechanic Engineering) team, College of Mechanical Engineering, Zhejiang University. UCR packages are developed on ROS. This package is a collection of packages used on UCR such as simulation package and runing-online package.
 
 # Prerequisit
